@@ -7,7 +7,7 @@ import BatchForm from '../sidebarSection/BatchForm';
 import EditBatchForm from '../sidebarSection/EditBatchForm';
 
 
-// const APP = process.env.REACT_APP_API_URL;
+const AP = process.env.REACT_APP_API_URL;
 
 const initialNavItems = [
   {
@@ -47,7 +47,7 @@ function Sidebar() {
 
   const fetchBatches = async () => {
     try {
-      const response = await axios.get(`${window.location.origin}/api/batches`);
+      const response = await axios.get(`${AP}/api/batches`);
       const batches = response.data;
       setNavItems((prevNavItems) => {
         const updatedNavItems = [...prevNavItems];
@@ -67,7 +67,7 @@ function Sidebar() {
 const addBatch = async (newBatch) => {
   try {
     // Make an asynchronous request to fetch the ID from MongoDB
-    const response = await fetch(`${window.location.origin}/api/getObjectId`, {
+    const response = await fetch(`${AP}/api/getObjectId`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -102,7 +102,7 @@ const addBatch = async (newBatch) => {
 
   const editBatch = async (updatedBatch) => {
     try {
-      await axios.put(`${window.location.origin}/api/batches/${updatedBatch._id}`, updatedBatch);
+      await axios.put(`${AP}/api/batches/${updatedBatch._id}`, updatedBatch);
       setNavItems((prevNavItems) => {
         const updatedNavItems = [...prevNavItems];
         const batchIndex = updatedNavItems[1].children.findIndex(
@@ -123,7 +123,7 @@ const addBatch = async (newBatch) => {
 
   const removeBatch = async (batchId) => {
     try {
-      await axios.delete(`${window.location.origin}/api/batches/${batchId}`);
+      await axios.delete(`${AP}/api/batches/${batchId}`);
       setNavItems((prevNavItems) => {
         const updatedNavItems = [...prevNavItems];
         updatedNavItems[1].children = updatedNavItems[1].children.filter(

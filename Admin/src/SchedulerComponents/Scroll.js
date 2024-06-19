@@ -5,7 +5,7 @@ import axios from 'axios';
 import { DateContext } from './DateContext';
 
 
-// const APP = process.env.REACT_APP_API_URL;
+const APP = process.env.REACT_APP_API_URL;
 
 function SideScroll() {
   const [showMenu, setShowMenu] = useState(false);
@@ -30,7 +30,7 @@ function SideScroll() {
   useEffect(() => {
     const fetchNotes = async () => {
       try {
-        const response = await axios.get(`${window.location.origin}/api/batches/${batchId}/schedule/${clickedDate}`);
+        const response = await axios.get(`${APP}/api/batches/${batchId}/schedule/${clickedDate}`);
         setNotes(response.data.classes);
       } catch (error) {
         console.error('Error fetching notes:', error);
@@ -65,7 +65,7 @@ function SideScroll() {
         classes: [newNote]
       };
       const response = await axios.post(
-        `${window.location.origin}/api/batches/${batchId}/schedule`, 
+        `${APP}/api/batches/${batchId}/schedule`, 
         [payload]
       );
       
@@ -90,7 +90,7 @@ function SideScroll() {
       const classId = noteToDelete._id;
 
       try {
-        const response = await axios.delete(`${window.location.origin}/api/batches/${batchId}/schedule/${clickedDate}/${classId}`);
+        const response = await axios.delete(`${APP}/api/batches/${batchId}/schedule/${clickedDate}/${classId}`);
         console.log('Note deleted:', response.data);
 
         const updatedNotes = notes.filter((_, index) => index !== selectedNoteIndex);
@@ -115,7 +115,7 @@ function SideScroll() {
           professor: editedNote.professor,
           latestClassDate: clickedDate
         };
-        const response = await axios.put(`${window.location.origin}/api/batches/${batchId}/schedule/${clickedDate}/${classId}`, payload);
+        const response = await axios.put(`${APP}/api/batches/${batchId}/schedule/${clickedDate}/${classId}`, payload);
         console.log('Note edited:', response.data);
 
         const updatedNotes = notes.map((note, index) =>
